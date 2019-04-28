@@ -3,25 +3,13 @@ from argparse import ArgumentParser
 from numpy import zeros
 import matplotlib.pyplot as plt
 
-if __name__ == "__main__":
-    parser = ArgumentParser(description="Generate Julia set from parameters")
-    parser.add_argument('rows', type=int)
-    parser.add_argument('columns', type=int)
-    parser.add_argument('steps', type=int)
-    parser.add_argument('shape_1', type=float)
-    parser.add_argument('shape_2', type=float)
-    arguments = parser.parse_args()
-    
-    rows = arguments.rows
-    columns = arguments.columns
-
     
 def create_empty_array(rows, columns):
     myarray = zeros([rows, columns])
     return myarray
 
 
-def fill_array(myarray):  
+def fill_array(myarray, steps, shape_1, shape_2):  
     """
     This function populates the array with values which when plotted create the Julia set.
     """
@@ -29,9 +17,6 @@ def fill_array(myarray):
     scale = 0.5
     xcontract = 1.5
     ycontract = 1.0
-    steps = arguments.steps
-    shape_1 = arguments.shape_1
-    shape_2 = arguments.shape_2
 
     for col in range(columns):
         for row in range(rows):
@@ -58,10 +43,25 @@ def plot_array(array):
     plt.savefig('Julia.png')
 
     
-def julia():
+def julia(rows, columns, steps, shape_1, shape_2):
     myarray = create_empty_array(rows, columns)
-    fill_array(myarray)
+    fill_array(myarray, steps, shape_1, shape_2)
     plot_array(myarray)
     
     
-julia()
+if __name__ == "__main__":
+    parser = ArgumentParser(description="Generate Julia set from parameters")
+    parser.add_argument('rows', type=int, default='600', nargs='?', help='number of rows in the array')
+    parser.add_argument('columns', type=int, default='800', nargs='?', help='number of columns in the array')
+    parser.add_argument('steps', type=int, default='255', nargs='?', help='number of steps to iterate through when creating the fractal: this gives detail')
+    parser.add_argument('shape_1', type=float, default='0.7', nargs='?', help='one of the parameters that changes the shape of the fractal')
+    parser.add_argument('shape_2', type=float, default='0.27015', nargs='?',  help='another parameter that changes the shape of the fractal')
+    arguments = parser.parse_args()
+    
+    rows = arguments.rows
+    columns = arguments.columns
+    steps = arguments.steps
+    shape_1 = arguments.shape_1
+    shape_2 = arguments.shape_2
+
+    julia(rows, columns, steps, shape_1, shape_2)
