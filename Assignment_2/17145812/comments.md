@@ -1,0 +1,9 @@
+Performance programming
+
+1)
+The figure produced in 'perf_plot.png' from running 'python perf_plot.py <levels>' shows that for each increasing branch level, the time taken to produce the tree (very roughly) doubles. This can be understood by looking at the tree. After the trunk is plotted, the tree branches out into two branches - this is one fork, and the first 'branch level'. These two branches can branch out into four branches via two forks. Four branches lead to four forks, which lead to eight forks, and so on. At each fork, the code performs two 'append' lines of code, one for each branch of the fork. So the number of 'append' processes scales directly with the number of forks, which itself doubles for every new branch level.
+
+If time is t and branch level is b, this could be written t *is proportional to* 2^b.
+
+2)
+The figure produced in 'perf_plot.png' from running 'python perf_plot.py <levels> -np' shows that in the NumPy solution I have arrived at, the performance law is roughly the same. Time taken to plot the tree still scales with the number of levels in the same shape curve. However, it takes nearly 20 times as long than the list-based approach. The method I have used has actually made the code slower. From a performance analysis, this is due to the costly method of creating a number of new arrays with every iteration of the outer for-loop. This, along with the use of hstack, means many new NumPy objects are being created in the code, rather than augmented as the code moves through its iterations. It seems the performance law remains the same because the structure of the for-loops hasn't been changed. Each iteration is more costly in terms of performance and processing time than its earlier counterpart therefore this solution has the same performance law but for longer times.

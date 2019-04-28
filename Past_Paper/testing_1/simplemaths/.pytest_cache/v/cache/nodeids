@@ -1,0 +1,14 @@
+[
+  "test_simplemaths.py::TestSimpleMaths::()::test_constructor_input",
+  "test_simplemaths.py::TestSimpleMaths::()::test_constructor_input_empty",
+  "test_simplemaths.py::TestSimpleMaths::()::test_constructor_number",
+  "test_simplemaths.py::TestSimpleMaths::()::test_constructor_type",
+  "test_simplemaths.py::TestSimpleMaths::()::test_square",
+  "test_simplemaths.py::TestSimpleMaths::()::test_factorial_0",
+  "test_simplemaths.py::TestSimpleMaths::()::test_factorial_proper",
+  "test_simplemaths.py::TestSimpleMaths::()::test_power",
+  "test_simplemaths.py::TestSimpleMaths::()::test_power_default",
+  "test_simplemaths.py::TestSimpleMaths::()::test_power_inputs",
+  "test_simplemaths.py::TestSimpleMaths::()::test_odd_or_even",
+  "test_simplemaths.py::TestSimpleMaths::()::test_square_root"
+]
