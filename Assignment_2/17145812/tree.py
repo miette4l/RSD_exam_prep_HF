@@ -5,7 +5,7 @@ from math import sin, cos
 from matplotlib import pyplot as plt
 
 
-def plotTree(x1=0, y1=0, lengths=0.6, levels=5, angle=0.1, scale=1, plot=True):
+def plotTree(x1, y1, lengths, levels, angle, scale, plot=True):
 
     s = scale
     rotation = 0
@@ -32,12 +32,12 @@ def plotTree(x1=0, y1=0, lengths=0.6, levels=5, angle=0.1, scale=1, plot=True):
 
 if __name__ == "__main__":
     parser = ArgumentParser(description="Generate tree of life")
-    parser.add_argument("x1", type=float, help="initial x-position where graph begins")
-    parser.add_argument("y1", type=float, help="initialyx-position where graph begins")
-    parser.add_argument("lengths", type=float, help="choose branch lengths")
-    parser.add_argument("levels", type=int, help="choose the number of branch levels, or in other words the depth of the tree")
-    parser.add_argument("angle", type=float, help="choose the angle of branches")
-    parser.add_argument("scale", type=float, help="choose the scale of the tree")
+    parser.add_argument("x1", type=float, help="initial x-position where graph begins", default='0', nargs='?')
+    parser.add_argument("y1", type=float, help="initialyx-position where graph begins", default='0', nargs='?')
+    parser.add_argument("lengths", type=float, help="choose branch lengths", default='0.6', nargs='?')
+    parser.add_argument("levels", type=int, help="choose the number of branch levels, or in other words the depth of the tree", default='5', nargs='?')
+    parser.add_argument("angle", type=float, help="choose the angle of branches", default='0.1', nargs='?')
+    parser.add_argument("scale", type=float, help="choose the scale of the tree", default='1', nargs='?')
     parser.add_argument("-p", help="turn off plotting",
                         action="store_false")
     args = parser.parse_args()
