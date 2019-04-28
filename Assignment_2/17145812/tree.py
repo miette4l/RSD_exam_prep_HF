@@ -5,9 +5,8 @@ from math import sin, cos
 from matplotlib import pyplot as plt
 
 
-def plotTree(x1, y1, lengths, levels, angle, plot=True):
+def plotTree(x1=0, y1=0, lengths=0.6, levels=5, angle=0.1, scale=1, plot=True):
 
-    scale = 1
     s = scale
     rotation = 0
     d = [[x1, y1+scale, rotation]]
@@ -17,8 +16,8 @@ def plotTree(x1, y1, lengths, levels, angle, plot=True):
 
     for level in range(levels):
         nodes = []
-        for i, fork in enumerate(d):
-            x1, y1, a1 = d[i][0], d[i][1], d[i][2]
+        for coord in d:
+            x1, y1, a1 = coord[0], coord[1], coord[2]
             nodes.append([x1+s*sin(a1-angle), y1+s*cos(a1-angle), a1-angle])
             nodes.append([x1+s*sin(a1+angle), y1+s*cos(a1+angle), a1+angle])
             if plot:
@@ -33,13 +32,14 @@ def plotTree(x1, y1, lengths, levels, angle, plot=True):
 
 if __name__ == "__main__":
     parser = ArgumentParser(description="Generate tree of life")
-    parser.add_argument("x1", type=float)
-    parser.add_argument("y1", type=float)
-    parser.add_argument("lengths", type=float)
-    parser.add_argument("levels", type=int)
-    parser.add_argument("angle", type=float)
+    parser.add_argument("x1", type=float, help="initial x-position where graph begins")
+    parser.add_argument("y1", type=float, help="initialyx-position where graph begins")
+    parser.add_argument("lengths", type=float, help="choose branch lengths")
+    parser.add_argument("levels", type=int, help="choose the number of branch levels, or in other words the depth of the tree")
+    parser.add_argument("angle", type=float, help="choose the angle of branches")
+    parser.add_argument("scale", type=float, help="choose the scale of the tree")
     parser.add_argument("-p", help="turn off plotting",
                         action="store_false")
     args = parser.parse_args()
 
-    plotTree(args.x1, args.y1, args.lengths, args.levels, args.angle, plot=args.p)
+    plotTree(args.x1, args.y1, args.lengths, args.levels, args.angle, args.scale, plot=args.p)
