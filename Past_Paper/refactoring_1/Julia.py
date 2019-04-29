@@ -8,6 +8,9 @@ def create_empty_array(rows, columns):
     myarray = zeros([rows, columns])
     return myarray
 
+def new_val(contraction, axis, shape, scale):
+    new = contraction*(axis-shape/2)/(scale*shape)
+    return new
 
 def fill_array(myarray, steps, shape_1, shape_2):  
     """
@@ -20,19 +23,15 @@ def fill_array(myarray, steps, shape_1, shape_2):
 
     for col in range(columns):
         for row in range(rows):
-            zx = xcontract*(col-columns/2)/(scale*columns)
-            zy = ycontract*(row-rows/2)/(scale*rows)
+            zx = new_val(xcontract, col, columns, scale)
+            zy = new_val(ycontract, row, rows, scale)
             i = steps
             t = True
-            while t is True:
-                if zx*zx + zy*zy >= 4:
-                    t = False
-                if i <= 1:
-                    t = False
+            while (zx*zx + zy*zy < 4 and i > 1): # combined these
                 a = zx * zx - zy * zy - shape_1
                 zy = 2.0 * zx * zy + shape_2
                 zx = a
-                i = i - 1
+                i -= 1 # shortened this
             myarray[row][col] = i
             
     return myarray
