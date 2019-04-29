@@ -1,9 +1,22 @@
 #!/usr/bin/env python
 
+"""
+This is an improved version where I've got rid of some repetition in code by creating small functions.
+"""
+
 from argparse import ArgumentParser
 from math import sin, cos
 from matplotlib import pyplot as plt
 
+def append_newvalue(x1, y1, a1, angle, nodes, s, sign):
+    return nodes.append([x1+s*sin(sign), y1+s*cos(sign), sign])
+
+def plot_branch(handedness, x1, y1, nodes):
+    if handedness == 'left':
+        v = -2
+    if handedness == 'right':
+        v = -1
+    return plt.plot([x1, nodes[v][0]], [y1, nodes[v][1]])
 
 def plotTree(x1, y1, lengths, levels, angle, scale, plot=True):
 
@@ -18,11 +31,13 @@ def plotTree(x1, y1, lengths, levels, angle, scale, plot=True):
         nodes = []
         for coord in d:
             x1, y1, a1 = coord[0], coord[1], coord[2]
-            nodes.append([x1+s*sin(a1-angle), y1+s*cos(a1-angle), a1-angle])
-            nodes.append([x1+s*sin(a1+angle), y1+s*cos(a1+angle), a1+angle])
+            difference = a1-angle
+            sum_ = a1+angle
+            append_newvalue(x1, y1, a1, angle, nodes, s, difference)
+            append_newvalue(x1, y1, a1, angle, nodes, s, sum_)
             if plot:
-                plt.plot([x1, nodes[-2][0]], [y1, nodes[-2][1]])
-                plt.plot([x1, nodes[-1][0]], [y1, nodes[-1][1]])
+                plot_branch('left', x1, y1, nodes)
+                plot_branch('right', x1, y1, nodes)
         d = nodes
         s *= lengths
 
